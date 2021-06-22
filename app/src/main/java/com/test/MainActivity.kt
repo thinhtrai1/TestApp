@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         mBinding.rcvFlexBox.layoutManager = layoutManager
         mBinding.rcvFlexBox.post { // for last line no grow
             val itemCount = layoutManager.flexLines.last().itemCount
-            adapter.noGrowIndex = adapter.testSize - itemCount
+            adapter.noGrowIndex = adapter.randoms.size - itemCount
             adapter.notifyItemRangeChanged(adapter.noGrowIndex, itemCount)
         }
 
@@ -41,38 +41,38 @@ class MainActivity : AppCompatActivity() {
 
     inner class FlexAdapter : RecyclerView.Adapter<ViewHolder>() {
         var noGrowIndex = 1000
-        val testSize = 30
+        val randoms = List(20) { list.random() }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             return ViewHolder(LayoutInflater.from(this@MainActivity).inflate(R.layout.item_rcv_flex, parent, false))
         }
 
         override fun getItemCount(): Int {
-            return testSize
+            return randoms.size
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            (holder.itemView as TextView).text = list.random()
-            (holder.itemView.layoutParams as FlexboxLayoutManager.LayoutParams).flexGrow = if (position < noGrowIndex) 1.0f else 0.0F
+            (holder.itemView as TextView).text = randoms[position]
+            (holder.itemView.layoutParams as FlexboxLayoutManager.LayoutParams).flexGrow = if (position < noGrowIndex) 1f else 0F
         }
     }
 
     inner class GridAdapter(layoutManager: GridLayoutManager) : LoadMoreAdapter<ViewHolder>(layoutManager) {
-        private val testSize = (1..30).random()
+        private val testSize = (1..20).random()
 
-        override fun onCreateViewHolderLoad(parent: ViewGroup, viewType: Int): ViewHolder {
+        override fun onCreateViewHolderImp(parent: ViewGroup, viewType: Int): ViewHolder {
             return ViewHolder(LayoutInflater.from(this@MainActivity).inflate(R.layout.item_rcv_grid, parent, false))
         }
 
-        override fun getItemCountLoad(): Int {
+        override fun getItemCountImp(): Int {
             return testSize
         }
 
-        override fun onBindViewHolderLoad(holder: ViewHolder, position: Int) {
+        override fun onBindViewHolderImp(holder: ViewHolder, position: Int) {
             (holder.itemView as TextView).text = list.random()
         }
 
-        override fun onLoadMoreListener(view: View) {
+        override fun onLoadMore(view: View) {
             recreate()
         }
     }

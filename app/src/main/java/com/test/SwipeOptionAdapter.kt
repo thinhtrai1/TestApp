@@ -18,8 +18,9 @@ abstract class SwipeOptionAdapter<VHC : RecyclerView.ViewHolder, VHO : RecyclerV
     init {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    mCurrentSwipeView?.smoothScrollToPosition(0)
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING && mCurrentSwipeView != null) {
+                    mCurrentSwipeView!!.scrollToPosition(0)
+                    mCurrentSwipeView = null
                 }
             }
         })

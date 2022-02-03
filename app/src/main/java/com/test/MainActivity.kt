@@ -1,5 +1,6 @@
 package com.test
 
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.test.databinding.ActivityMainBinding
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
@@ -36,6 +38,11 @@ class MainActivity : AppCompatActivity() {
 
         mBinding.rcvSwipe.adapter = SwipeAdapter(mBinding.rcvSwipe)
         mBinding.rcvSwipe.layoutManager = LinearLayoutManager(this)
+
+
+        mBinding.imvAnimated.setOnClickListener {
+            (mBinding.imvAnimated.drawable as AnimatedVectorDrawable).start()
+        }
     }
 
     private fun isPermissionGranted(vararg permissions: String): Boolean {

@@ -43,6 +43,15 @@ class MainActivity : AppCompatActivity() {
         mBinding.imvAnimated.setOnClickListener {
             (mBinding.imvAnimated.drawable as AnimatedVectorDrawable).start()
         }
+
+        val months = ArrayList<String>()
+        with(Calendar.getInstance(Locale.JAPAN).apply { set(Calendar.YEAR, 2020) }) {
+            while (get(Calendar.YEAR) < 2025) {
+                months.add(get(Calendar.YEAR).toString() + "年" + String.format("%02d", get(Calendar.MONTH) + 1) + "月")
+                add(Calendar.MONTH, 1)
+            }
+        }
+        mBinding.wheelPicker.setData(months)
     }
 
     private fun isPermissionGranted(vararg permissions: String): Boolean {

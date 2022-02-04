@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android Projects/TestApp/app/src/main/res/drawable/cross_to_tick.xml" value="0.26481481481481484" />
+        <entry key="..\:/Android Projects/TestApp/app/src/main/res/drawable/cross_to_tick.xml" value="0.136" />
         <entry key="..\:/Android Projects/TestApp/app/src/main/res/drawable/ic_cross.xml" value="0.26481481481481484" />
+        <entry key="..\:/Android Projects/TestApp/app/src/main/res/drawable/splash_launcher.xml" value="0.135" />
         <entry key="..\:/Android Projects/TestApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Android Projects/TestApp/app/src/main/res/layout/item_rcv_swipe.xml" value="0.2111111111111111" />
       </map>
     </option>
   </component>

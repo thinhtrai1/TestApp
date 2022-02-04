@@ -88,10 +88,8 @@ class WheelPicker(context: Context, attrs: AttributeSet?) : View(context, attrs)
         color = Color.parseColor("#DDDDDD")
     }
 
-    private fun Int.toPx() = this * resources.displayMetrics.density
-
     init {
-        val conf = ViewConfiguration.get(getContext())
+        val conf = ViewConfiguration.get(context)
         minimumVelocity = conf.scaledMinimumFlingVelocity
         maximumVelocity = conf.scaledMaximumFlingVelocity
         touchSlop = conf.scaledTouchSlop
@@ -150,25 +148,13 @@ class WheelPicker(context: Context, attrs: AttributeSet?) : View(context, attrs)
         resultWidth = measureSize(modeWidth, sizeWidth, resultWidth)
         resultHeight = measureSize(modeHeight, sizeHeight, resultHeight)
         setMeasuredDimension(resultWidth, resultHeight)
-
-        val padding = 8.toPx()
-        selectedRectF.set(
-            paddingLeft + padding,
-            wheelCenterY - mItemHeight / 2f - padding,
-            resultWidth - padding,
-            wheelCenterY + mItemHeight / 2f + padding
-        )
     }
 
     private fun measureSize(mode: Int, sizeExpect: Int, sizeActual: Int): Int {
-        return if (mode == MeasureSpec.EXACTLY) {
-            sizeExpect
-        } else {
-            if (mode == MeasureSpec.AT_MOST) {
-                min(sizeActual, sizeExpect)
-            } else {
-                sizeActual
-            }
+        return when (mode) {
+            MeasureSpec.EXACTLY -> sizeExpect
+            MeasureSpec.AT_MOST -> min(sizeActual, sizeExpect)
+            else -> sizeActual
         }
     }
 
@@ -191,6 +177,14 @@ class WheelPicker(context: Context, attrs: AttributeSet?) : View(context, attrs)
 
         // Correct region of current select item
         computeCurrentItemRect()
+
+        val padding = 8.toPx()
+        selectedRectF.set(
+            paddingLeft + padding,
+            wheelCenterY - mItemHeight / 2f - padding,
+            width - paddingRight - padding,
+            wheelCenterY + mItemHeight / 2f + padding
+        )
     }
 
     private fun computeDrawnCenter() {

@@ -4,7 +4,7 @@ import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -31,11 +31,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        val gridLayoutManager = GridLayoutManager(this, (1..5).random())
-        mBinding.rcvGrid.adapter = GridAdapter(gridLayoutManager, this)
-        mBinding.rcvGrid.layoutManager = gridLayoutManager
-
-
         mBinding.rcvSwipe.adapter = SwipeAdapter(mBinding.rcvSwipe)
         mBinding.rcvSwipe.layoutManager = LinearLayoutManager(this)
 
@@ -43,6 +38,30 @@ class MainActivity : AppCompatActivity() {
         mBinding.imvAnimated.setOnClickListener {
             (mBinding.imvAnimated.drawable as AnimatedVectorDrawable).start()
             WheelBottomSheetDialog.newInstance().show(supportFragmentManager, null)
+        }
+
+
+        mBinding.btnTest.setOnClickListener {
+            SpotlightView(this)
+                .add(
+                    type = SpotlightView.SpotlightType.Rectangle(),
+                    focusView = mBinding.btnTest,
+                    tutorialView = mBinding.rcvFlexBox[0],
+                    isTutorialInTop = true
+                )
+                .add(
+                    type = SpotlightView.SpotlightType.Circle,
+                    focusView = mBinding.imvAnimated,
+                    tutorialView = mBinding.rcvFlexBox[1],
+                    isTutorialInTop = false
+                )
+                .add(
+                    type = SpotlightView.SpotlightType.Rectangle(8),
+                    focusView = mBinding.btnTest,
+                    tutorialView = mBinding.rcvFlexBox[2],
+                    isTutorialInTop = true
+                )
+                .start()
         }
     }
 

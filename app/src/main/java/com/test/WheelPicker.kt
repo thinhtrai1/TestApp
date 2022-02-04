@@ -14,7 +14,7 @@ import android.widget.Scroller
 import kotlin.collections.ArrayList
 import kotlin.math.*
 
-class WheelPicker(context: Context, attrs: AttributeSet) : View(context, attrs) {
+class WheelPicker(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private var onItemSelectedListener: IOnItemSelectedListener? = null
     private val dataList = ArrayList<String>()
 
@@ -56,7 +56,7 @@ class WheelPicker(context: Context, attrs: AttributeSet) : View(context, attrs) 
     private val touchSlop: Int
 
     private var hasAtmospheric = true
-    private var isCyclic = true
+    private var isCyclic = false
     private var isCurved = true
     private var isClick = false
     private var isForceFinishScroll = false
@@ -82,7 +82,10 @@ class WheelPicker(context: Context, attrs: AttributeSet) : View(context, attrs) 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.DITHER_FLAG or Paint.LINEAR_TEXT_FLAG).apply {
         textAlign = Paint.Align.CENTER
         textSize = 24.toPx()
-        style = Paint.Style.FILL
+    }
+    private val selectedRectF = RectF()
+    private val selectedPaint = Paint().apply {
+        color = Color.parseColor("#DDDDDD")
     }
 
     private fun Int.toPx() = this * resources.displayMetrics.density
@@ -147,6 +150,14 @@ class WheelPicker(context: Context, attrs: AttributeSet) : View(context, attrs) 
         resultWidth = measureSize(modeWidth, sizeWidth, resultWidth)
         resultHeight = measureSize(modeHeight, sizeHeight, resultHeight)
         setMeasuredDimension(resultWidth, resultHeight)
+
+        val padding = 8.toPx()
+        selectedRectF.set(
+            paddingLeft + padding,
+            wheelCenterY - mItemHeight / 2f - padding,
+            resultWidth - padding,
+            wheelCenterY + mItemHeight / 2f + padding
+        )
     }
 
     private fun measureSize(mode: Int, sizeExpect: Int, sizeActual: Int): Int {
@@ -206,11 +217,22 @@ class WheelPicker(context: Context, attrs: AttributeSet) : View(context, attrs) 
         if (mItemHeight - mHalfDrawnItemCount <= 0) {
             return
         }
+        canvas.drawRoundRect(selectedRectF, 8.toPx(), 8.toPx(), selectedPaint)
         val drawnDataStartPos = -scrollOffsetY / mItemHeight - mHalfDrawnItemCount
         var drawnDataPos = drawnDataStartPos + selectedItemPosition
         var drawnOffsetPos = -mHalfDrawnItemCount
         while (drawnDataPos < drawnDataStartPos + selectedItemPosition + mDrawnItemCount) {
-            val data = getItem(drawnDataPos)
+            val data = when {
+                isCyclic -> {
+                    var actualPos = drawnDataPos % dataList.size
+                    if (actualPos < 0) actualPos += dataList.size
+                    getItem(actualPos)
+                }
+                drawnDataPos > -1 && drawnDataPos < dataList.size -> {
+                    getItem(drawnDataPos)
+                }
+                else -> ""
+            }
             val mDrawnItemCenterY = drawnCenterY + drawnOffsetPos * mItemHeight + scrollOffsetY % mItemHeight
             var distanceToCenter = 0f
             if (isCurved) {

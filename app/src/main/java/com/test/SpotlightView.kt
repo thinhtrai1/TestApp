@@ -5,6 +5,7 @@ import android.app.Activity
 import android.graphics.*
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.OvershootInterpolator
 import kotlin.math.max
 
 class SpotlightView(private val activity: Activity) : View(activity) {
@@ -80,6 +81,7 @@ class SpotlightView(private val activity: Activity) : View(activity) {
             val targetX = (mRight - mLeft) / 2
             val targetY = (mBottom - mTop) / 2
             spotlightAnimator = ValueAnimator.ofFloat(0f, targetX).apply {
+                interpolator = OvershootInterpolator()
                 addUpdateListener {
                     val value = it.animatedValue as Float
                     rect.set(

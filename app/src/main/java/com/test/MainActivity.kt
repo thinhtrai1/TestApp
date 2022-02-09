@@ -3,13 +3,11 @@ package com.test
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.test.databinding.ActivityMainBinding
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
@@ -37,7 +35,10 @@ class MainActivity : AppCompatActivity() {
 
         mBinding.imvAnimated.setOnClickListener {
             (mBinding.imvAnimated.drawable as AnimatedVectorDrawable).start()
-            WheelBottomSheetDialog.newInstance().show(supportFragmentManager, null)
+            WheelBottomSheetDialog.newInstance(0).show(supportFragmentManager, null)
+        }
+        mBinding.imvAnimated2.setOnClickListener {
+            WheelBottomSheetDialog.newInstance(1).show(supportFragmentManager, null)
         }
 
 
@@ -63,10 +64,6 @@ class MainActivity : AppCompatActivity() {
                 )
                 .start()
         }
-    }
-
-    private fun isPermissionGranted(vararg permissions: String): Boolean {
-        return permissions.indexOfFirst { ContextCompat.checkSelfPermission(this, it) != 0 } == -1
     }
 
     companion object {

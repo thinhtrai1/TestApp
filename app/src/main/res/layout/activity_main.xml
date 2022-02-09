@@ -28,6 +28,14 @@
         android:layout_gravity="center"
         android:src="@drawable/cross_to_tick" />
 
+    <ImageView
+        android:id="@+id/imvAnimated2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_gravity="center"
+        android:src="@drawable/cross_to_tick" />
+
     <TextView
         android:id="@+id/btnTest"
         android:layout_width="wrap_content"

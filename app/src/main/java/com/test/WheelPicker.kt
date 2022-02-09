@@ -68,7 +68,7 @@ class WheelPicker(context: Context, attrs: AttributeSet?) : View(context, attrs)
             if (scroller.isFinished && !isForceFinishScroll) {
                 if (mItemHeight == 0) return
                 var position = (-scrollOffsetY / mItemHeight + selectedItemPosition) % itemCount
-                position = if (position < 0) position + itemCount else position
+                if (position < 0) position += itemCount
                 currentItemPosition = position
                 onItemSelectedListener?.onItemSelected(currentItemPosition)
             }
@@ -127,24 +127,13 @@ class WheelPicker(context: Context, attrs: AttributeSet?) : View(context, attrs)
         val modeHeight = MeasureSpec.getMode(heightMeasureSpec)
         val sizeWidth = MeasureSpec.getSize(widthMeasureSpec)
         val sizeHeight = MeasureSpec.getSize(heightMeasureSpec)
-
-        // Correct sizes of original content
         var resultWidth = mTextMaxWidth
         var resultHeight = mTextMaxHeight * mVisibleItemCount + mItemSpace * (mVisibleItemCount - 1)
-
-        // Correct view sizes again if curved is enable
         if (isCurved) {
-            // The text is written on the circle circumference from -mMaxAngle to mMaxAngle.
-            // 2 * sinDegree(mMaxAngle): Height of drawn circle
-            // Math.PI: Circumference of half unit circle, `mMaxAngle / 90f`: The ratio of half-circle we draw on
             resultHeight = (2 * sinDegree(mMaxAngle) / (Math.PI * mMaxAngle / 90f) * resultHeight).toInt()
         }
-
-        // Consideration padding influence the view sizes
         resultWidth += paddingLeft + paddingRight
         resultHeight += paddingTop + paddingBottom
-
-        // Consideration sizes of parent can influence the view sizes
         resultWidth = measureSize(modeWidth, sizeWidth, resultWidth)
         resultHeight = measureSize(modeHeight, sizeHeight, resultHeight)
         setMeasuredDimension(resultWidth, resultHeight)
@@ -159,23 +148,14 @@ class WheelPicker(context: Context, attrs: AttributeSet?) : View(context, attrs)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldW: Int, oldH: Int) {
-        // Set content region
         rectDrawn.set(paddingLeft, paddingTop, width - paddingRight, height - paddingBottom)
-
-        // Get the center coordinates of content region
         wheelCenterX = rectDrawn.centerX()
         wheelCenterY = rectDrawn.centerY()
-
-        // Correct item drawn center
         computeDrawnCenter()
         mHalfWheelHeight = rectDrawn.height() / 2
         mItemHeight = rectDrawn.height() / mVisibleItemCount
         mHalfItemHeight = mItemHeight / 2
-
-        // Initialize fling max Y-coordinates
         computeFlingLimitY()
-
-        // Correct region of current select item
         computeCurrentItemRect()
 
         val padding = 8.toPx()
@@ -230,10 +210,7 @@ class WheelPicker(context: Context, attrs: AttributeSet?) : View(context, attrs)
             val mDrawnItemCenterY = drawnCenterY + drawnOffsetPos * mItemHeight + scrollOffsetY % mItemHeight
             var distanceToCenter = 0f
             if (isCurved) {
-                // Correct ratio of item's drawn center to wheel center
                 val ratio = (drawnCenterY - abs(drawnCenterY - mDrawnItemCenterY) - rectDrawn.top) * 1f / (drawnCenterY - rectDrawn.top)
-
-                // Correct unit
                 val unit = when {
                     mDrawnItemCenterY > drawnCenterY -> 1
                     mDrawnItemCenterY < drawnCenterY -> -1
@@ -265,10 +242,8 @@ class WheelPicker(context: Context, attrs: AttributeSet?) : View(context, attrs)
             if (hasAtmospheric) {
                 paint.alpha = max(((drawnCenterY - abs(drawnCenterY - mDrawnItemCenterY)) * 1f / drawnCenterY * 255).toInt(), 0)
             }
-            // Correct item's drawn centerY base on curved state
-            val drawnCenterY = if (isCurved) drawnCenterY - distanceToCenter else mDrawnItemCenterY.toFloat()
 
-            // Judges need to draw different color for current item or not
+            val drawnCenterY = if (isCurved) drawnCenterY - distanceToCenter else mDrawnItemCenterY.toFloat()
             if (mSelectedItemTextColor != -1) {
                 canvas.save()
                 if (isCurved) canvas.concat(matrixRotate)
@@ -298,7 +273,6 @@ class WheelPicker(context: Context, attrs: AttributeSet?) : View(context, attrs)
     }
 
     private fun computeYCoordinateAtAngle(degree: Float): Float {
-        // Compute y-coordinate for item at degree. mMaxAngle is at mHalfWheelHeight
         return sinDegree(degree) / sinDegree(mMaxAngle) * mHalfWheelHeight
     }
 
@@ -342,8 +316,6 @@ class WheelPicker(context: Context, attrs: AttributeSet?) : View(context, attrs)
                     } else {
                         isClick = false
                         tracker!!.addMovement(event)
-
-                        // Scroll WheelPicker's content
                         val move = event.y - lastPointY
                         if (abs(move) >= 1) {
                             scrollOffsetY += move.toInt()
@@ -357,8 +329,6 @@ class WheelPicker(context: Context, attrs: AttributeSet?) : View(context, attrs)
                     if (!isClick) {
                         tracker!!.addMovement(event)
                         tracker!!.computeCurrentVelocity(1000, maximumVelocity.toFloat())
-
-                        // Judges the WheelPicker is scroll or fling base on current velocity
                         isForceFinishScroll = false
                         val velocity = tracker!!.yVelocity.toInt()
                         if (abs(velocity) > minimumVelocity) {
@@ -367,7 +337,6 @@ class WheelPicker(context: Context, attrs: AttributeSet?) : View(context, attrs)
                         } else {
                             scroller.startScroll(0, scrollOffsetY, 0, computeDistanceToEndPoint(scrollOffsetY % mItemHeight))
                         }
-                        // Correct coordinates
                         if (!isCyclic) {
                             if (scroller.finalY > maxFlingY) {
                                 scroller.finalY = maxFlingY

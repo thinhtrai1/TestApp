@@ -1,10 +1,12 @@
 package com.test
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class SplashActivity: AppCompatActivity() {
@@ -23,3 +25,7 @@ class SplashActivity: AppCompatActivity() {
 }
 
 fun Int.toPx() = this * Resources.getSystem().displayMetrics.density
+
+fun Context.toast(msg: String?) {
+    Toast.makeText(this, msg ?: return, Toast.LENGTH_SHORT).show()
+}

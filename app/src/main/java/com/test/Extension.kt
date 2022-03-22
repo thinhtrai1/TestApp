@@ -6,6 +6,7 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -28,4 +29,8 @@ fun Int.toPx() = this * Resources.getSystem().displayMetrics.density
 
 fun Context.toast(msg: String?) {
     Toast.makeText(this, msg ?: return, Toast.LENGTH_SHORT).show()
+}
+
+fun logE(message: Any?) {
+    Log.e("mLog", message.toString())
 }

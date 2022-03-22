@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.test.databinding.ActivityMainBinding
+import com.test.placeholder.AnimatedGradientDrawable
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
@@ -29,8 +30,8 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        mBinding.rcvSwipe.adapter = SwipeAdapter(mBinding.rcvSwipe)
         mBinding.rcvSwipe.layoutManager = LinearLayoutManager(this)
+        mBinding.rcvSwipe.adapter = SwipeAdapter(mBinding.rcvSwipe)
 
 
         mBinding.imvAnimated.setOnClickListener {
@@ -42,11 +43,11 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        mBinding.btnTest.setOnClickListener {
+        mBinding.btnSpotlight.setOnClickListener {
             SpotlightView(this)
                 .add(
                     type = SpotlightView.SpotlightType.Rectangle(),
-                    focusView = mBinding.btnTest,
+                    focusView = mBinding.btnSpotlight,
                     tutorialView = mBinding.rcvFlexBox[0],
                     isTutorialInTop = true
                 )
@@ -58,11 +59,21 @@ class MainActivity : AppCompatActivity() {
                 )
                 .add(
                     type = SpotlightView.SpotlightType.Rectangle(8),
-                    focusView = mBinding.btnTest,
+                    focusView = mBinding.btnSpotlight,
                     tutorialView = mBinding.rcvFlexBox[2],
                     isTutorialInTop = true
                 )
                 .start()
+        }
+
+
+        mBinding.btnPlaceholder.setOnClickListener {
+            if (AnimatedGradientDrawable.isAttached(mBinding.layoutBottom)) {
+//                AnimatedGradientDrawable(mBinding.layoutBottom).start()
+                AnimatedGradientDrawable.detachViewGroup(mBinding.layoutBottom)
+            } else {
+                AnimatedGradientDrawable.attachViewGroup(mBinding.layoutBottom)
+            }
         }
     }
 

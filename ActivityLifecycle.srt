@@ -1,0 +1,1436 @@
+1
+00:00:00,000 --> 00:00:02,159
+hey guys and welcome back to a new video
+
+2
+00:00:02,159 --> 00:00:04,440
+and also a new playlist which is called
+
+3
+00:00:04,440 --> 00:00:06,600
+Android Basics with this new playlist I
+
+4
+00:00:06,600 --> 00:00:08,519
+want to focus on explaining the core
+
+5
+00:00:08,519 --> 00:00:10,620
+Android Concepts which are purely used
+
+6
+00:00:10,620 --> 00:00:12,660
+for Native development and this is also
+
+7
+00:00:12,660 --> 00:00:14,519
+not only targeted towards beginners but
+
+8
+00:00:14,519 --> 00:00:16,859
+also if you're already familiar with
+
+9
+00:00:16,859 --> 00:00:19,020
+some Android development that is also
+
+10
+00:00:19,020 --> 00:00:20,699
+for you since all these basic Android
+
+11
+00:00:20,699 --> 00:00:22,859
+Concepts such as activities the back
+
+12
+00:00:22,859 --> 00:00:24,660
+stack and all these kinds of things are
+
+13
+00:00:24,660 --> 00:00:26,519
+often only scratched on the surface but
+
+14
+00:00:26,519 --> 00:00:27,960
+it definitely makes sense to go into
+
+15
+00:00:27,960 --> 00:00:29,640
+these a bit deeper so this playlist is
+
+16
+00:00:29,640 --> 00:00:31,019
+not intended to make your Android
+
+17
+00:00:31,019 --> 00:00:33,120
+developer from nothing but rather for
+
+18
+00:00:33,120 --> 00:00:34,739
+those people who are new to the Android
+
+19
+00:00:34,739 --> 00:00:36,660
+ecosystem or just want to deepen their
+
+20
+00:00:36,660 --> 00:00:38,399
+knowledge but on the one hand it assumes
+
+21
+00:00:38,399 --> 00:00:39,960
+that you know kotlin the programming
+
+22
+00:00:39,960 --> 00:00:41,160
+language we use for Native Android
+
+23
+00:00:41,160 --> 00:00:43,379
+development and I also won't cover any
+
+24
+00:00:43,379 --> 00:00:45,300
+UI building here because for that I have
+
+25
+00:00:45,300 --> 00:00:47,219
+my separate jetpick compose playlist on
+
+26
+00:00:47,219 --> 00:00:48,539
+this playlist I will talk about things
+
+27
+00:00:48,539 --> 00:00:51,120
+like activities the life cycle the back
+
+28
+00:00:51,120 --> 00:00:52,980
+stack broadcast receiver Services
+
+29
+00:00:52,980 --> 00:00:55,020
+intense all these Android specific
+
+30
+00:00:55,020 --> 00:00:57,059
+things what I will leave out though are
+
+31
+00:00:57,059 --> 00:00:59,039
+Concepts that don't find much
+
+32
+00:00:59,039 --> 00:01:01,140
+application nowadays is due to Jetpack
+
+33
+00:01:01,140 --> 00:01:03,000
+compose so for example fragments is a
+
+34
+00:01:03,000 --> 00:01:04,379
+topic where you have an older video
+
+35
+00:01:04,379 --> 00:01:06,299
+about but I decided to not make a video
+
+36
+00:01:06,299 --> 00:01:08,340
+about that in this playlist because most
+
+37
+00:01:08,340 --> 00:01:10,619
+new Android apps nowadays just don't use
+
+38
+00:01:10,619 --> 00:01:12,479
+that anymore due to Jetpack compose and
+
+39
+00:01:12,479 --> 00:01:14,340
+in this first video I want to talk about
+
+40
+00:01:14,340 --> 00:01:17,700
+activities and their life cycle
+
+41
+00:01:17,700 --> 00:01:19,260
+so whenever you create a new Android
+
+42
+00:01:19,260 --> 00:01:21,659
+Studio project then you will end up with
+
+43
+00:01:21,659 --> 00:01:23,100
+something like this you will have a
+
+44
+00:01:23,100 --> 00:01:25,380
+class main activity which is in this
+
+45
+00:01:25,380 --> 00:01:27,720
+case a component activity and another
+
+46
+00:01:27,720 --> 00:01:29,759
+studio will generate an oncreate
+
+47
+00:01:29,759 --> 00:01:31,979
+function which you override here with
+
+48
+00:01:31,979 --> 00:01:34,500
+some initial content in this case with
+
+49
+00:01:34,500 --> 00:01:37,140
+jetpack compose we want to ignore this
+
+50
+00:01:37,140 --> 00:01:39,360
+Java composter here completely and focus
+
+51
+00:01:39,360 --> 00:01:42,240
+on this outer thing this activity and
+
+52
+00:01:42,240 --> 00:01:44,700
+what that actually is an activity itself
+
+53
+00:01:44,700 --> 00:01:47,220
+is kind of a container for one or
+
+54
+00:01:47,220 --> 00:01:48,960
+multiple screens in your app but that's
+
+55
+00:01:48,960 --> 00:01:50,939
+only part of the truth I wouldn't only
+
+56
+00:01:50,939 --> 00:01:53,280
+see it as a container for screens but
+
+57
+00:01:53,280 --> 00:01:56,040
+rather as a unit of your app where your
+
+58
+00:01:56,040 --> 00:01:58,259
+users interact with and that is also why
+
+59
+00:01:58,259 --> 00:02:00,659
+activities are called activities and not
+
+60
+00:02:00,659 --> 00:02:02,460
+something like screen container so this
+
+61
+00:02:02,460 --> 00:02:04,740
+activity will contain information about
+
+62
+00:02:04,740 --> 00:02:06,479
+if it's currently active on the screen
+
+63
+00:02:06,479 --> 00:02:08,758
+if it's in the background it will also
+
+64
+00:02:08,758 --> 00:02:11,160
+serve as an entry point for your app so
+
+65
+00:02:11,160 --> 00:02:13,319
+that means if a user comes to your app
+
+66
+00:02:13,319 --> 00:02:15,060
+from another app for example your
+
+67
+00:02:15,060 --> 00:02:17,099
+browser um if they click on a link or so
+
+68
+00:02:17,099 --> 00:02:19,379
+which opens you Europe then an activity
+
+69
+00:02:19,379 --> 00:02:21,540
+is a component that directly gets
+
+70
+00:02:21,540 --> 00:02:23,160
+launched from that action and in the
+
+71
+00:02:23,160 --> 00:02:25,500
+past we usually did it that way that we
+
+72
+00:02:25,500 --> 00:02:27,599
+had one activity per screen when things
+
+73
+00:02:27,599 --> 00:02:30,360
+changed a bit and we got fragments so we
+
+74
+00:02:30,360 --> 00:02:32,340
+often bundled the different related
+
+75
+00:02:32,340 --> 00:02:34,379
+screens into one activity so you might
+
+76
+00:02:34,379 --> 00:02:36,480
+have one profile activity with a normal
+
+77
+00:02:36,480 --> 00:02:39,720
+profile screen a profile edit screen so
+
+78
+00:02:39,720 --> 00:02:41,220
+multiple screens are just bundled into
+
+79
+00:02:41,220 --> 00:02:43,200
+one activity which hosts these different
+
+80
+00:02:43,200 --> 00:02:45,239
+screens and then nowadays we got Japan
+
+81
+00:02:45,239 --> 00:02:47,280
+composed which usually means we will
+
+82
+00:02:47,280 --> 00:02:49,200
+only have a single activity in our whole
+
+83
+00:02:49,200 --> 00:02:50,940
+app so in this case with the jetpack
+
+84
+00:02:50,940 --> 00:02:53,459
+compose setup here we can have lots of
+
+85
+00:02:53,459 --> 00:02:56,040
+screens as many as we want while staying
+
+86
+00:02:56,040 --> 00:02:58,080
+in the single main activity so in pure
+
+87
+00:02:58,080 --> 00:02:59,940
+Japan composed products this main
+
+88
+00:02:59,940 --> 00:03:02,340
+activity will just serve as the entry
+
+89
+00:03:02,340 --> 00:03:04,379
+point for our application so if another
+
+90
+00:03:04,379 --> 00:03:06,720
+component another app for example a
+
+91
+00:03:06,720 --> 00:03:09,120
+system component needs to launch our app
+
+92
+00:03:09,120 --> 00:03:11,220
+then it needs to directly say I want to
+
+93
+00:03:11,220 --> 00:03:13,260
+launch this activity or I want to just
+
+94
+00:03:13,260 --> 00:03:15,060
+launch this app and this is the starting
+
+95
+00:03:15,060 --> 00:03:16,980
+activity of that but the main
+
+96
+00:03:16,980 --> 00:03:18,900
+characteristic of activities in Android
+
+97
+00:03:18,900 --> 00:03:21,300
+is the so-called lifecycle so that means
+
+98
+00:03:21,300 --> 00:03:23,760
+at some point our activity is born so
+
+99
+00:03:23,760 --> 00:03:25,500
+it's called created and that is what
+
+100
+00:03:25,500 --> 00:03:27,959
+this oncreate function stands for and at
+
+101
+00:03:27,959 --> 00:03:29,879
+some point it's not needed anymore all
+
+102
+00:03:29,879 --> 00:03:32,099
+its memory resources are freed up and
+
+103
+00:03:32,099 --> 00:03:34,260
+it's destroyed and in between there are
+
+104
+00:03:34,260 --> 00:03:36,239
+just some steps that happen which move
+
+105
+00:03:36,239 --> 00:03:38,220
+this activity into different so-called
+
+106
+00:03:38,220 --> 00:03:40,019
+lifecycle States if you just take a look
+
+107
+00:03:40,019 --> 00:03:41,760
+at the official activity lifecycle
+
+108
+00:03:41,760 --> 00:03:43,620
+diagram from the Android documentation
+
+109
+00:03:43,620 --> 00:03:46,080
+we get to see this picture this is the
+
+110
+00:03:46,080 --> 00:03:48,060
+whole lifecycle looks super complex but
+
+111
+00:03:48,060 --> 00:03:49,799
+let's break it down because once you
+
+112
+00:03:49,799 --> 00:03:51,180
+understand it it's actually fairly
+
+113
+00:03:51,180 --> 00:03:53,220
+simple as we already saw once the
+
+114
+00:03:53,220 --> 00:03:55,620
+activity is created on creators call so
+
+115
+00:03:55,620 --> 00:03:57,900
+it will move into the created lifecycle
+
+116
+00:03:57,900 --> 00:03:59,940
+State and that is just the place where
+
+117
+00:03:59,940 --> 00:04:01,799
+we want to initialize our variables
+
+118
+00:04:01,799 --> 00:04:03,840
+inside of that activity where we want to
+
+119
+00:04:03,840 --> 00:04:06,780
+set the actual views so the actual UI
+
+120
+00:04:06,780 --> 00:04:08,760
+content of that activity and just do
+
+121
+00:04:08,760 --> 00:04:11,280
+some further initialization at this
+
+122
+00:04:11,280 --> 00:04:13,379
+point the user does not see anything on
+
+123
+00:04:13,379 --> 00:04:15,720
+the screen yet after the created state
+
+124
+00:04:15,720 --> 00:04:17,519
+it will start to move into the style
+
+125
+00:04:17,519 --> 00:04:19,798
+started state so onstart will be called
+
+126
+00:04:19,798 --> 00:04:21,839
+when that is complete an activity is
+
+127
+00:04:21,839 --> 00:04:24,120
+considered to be startled when it
+
+128
+00:04:24,120 --> 00:04:26,280
+becomes visible for the user but at this
+
+129
+00:04:26,280 --> 00:04:28,380
+point the user still can't interact with
+
+130
+00:04:28,380 --> 00:04:29,880
+it yet so you can kind of compare this
+
+131
+00:04:29,880 --> 00:04:31,500
+with a theater where the curtains open
+
+132
+00:04:31,500 --> 00:04:33,600
+up initially and you can already see all
+
+133
+00:04:33,600 --> 00:04:35,040
+the actors and everything from the play
+
+134
+00:04:35,040 --> 00:04:37,620
+but the play itself is not starting yet
+
+135
+00:04:37,620 --> 00:04:39,720
+however after the starter state it will
+
+136
+00:04:39,720 --> 00:04:42,120
+move into the resume State when an
+
+137
+00:04:42,120 --> 00:04:43,919
+activity is in the resume state that
+
+138
+00:04:43,919 --> 00:04:45,600
+means it's in the foreground the user
+
+139
+00:04:45,600 --> 00:04:47,400
+can interact with it that's also where
+
+140
+00:04:47,400 --> 00:04:49,500
+it will stay until the user eventually
+
+141
+00:04:49,500 --> 00:04:51,600
+moves away so you can see here the
+
+142
+00:04:51,600 --> 00:04:53,580
+activity is running in this case so it
+
+143
+00:04:53,580 --> 00:04:55,560
+will block the state until something is
+
+144
+00:04:55,560 --> 00:04:57,300
+happening as you can see as soon as
+
+145
+00:04:57,300 --> 00:04:59,160
+another activity comes into the
+
+146
+00:04:59,160 --> 00:05:01,320
+foreground the life cycle state will
+
+147
+00:05:01,320 --> 00:05:03,479
+move to on pause and this is actually a
+
+148
+00:05:03,479 --> 00:05:05,300
+bit inaccurate because it's not only
+
+149
+00:05:05,300 --> 00:05:07,800
+moving to the pause State when another
+
+150
+00:05:07,800 --> 00:05:09,840
+activity comes into the foreground but
+
+151
+00:05:09,840 --> 00:05:12,479
+when any different piece of UI comes
+
+152
+00:05:12,479 --> 00:05:14,400
+into the foreground for example a dialog
+
+153
+00:05:14,400 --> 00:05:16,080
+which doesn't need to be an activity so
+
+154
+00:05:16,080 --> 00:05:17,880
+at this point all the resources the
+
+155
+00:05:17,880 --> 00:05:19,680
+activity needs will still be kept in
+
+156
+00:05:19,680 --> 00:05:21,479
+memory because the user might still come
+
+157
+00:05:21,479 --> 00:05:22,979
+back to the activity which is very
+
+158
+00:05:22,979 --> 00:05:25,259
+likely if they see a dialogue or so but
+
+159
+00:05:25,259 --> 00:05:27,060
+they just need to apply some kind of
+
+160
+00:05:27,060 --> 00:05:28,979
+action but it could also be that they
+
+161
+00:05:28,979 --> 00:05:30,479
+just navigate through different screen
+
+162
+00:05:30,479 --> 00:05:32,220
+of their app where they might decide to
+
+163
+00:05:32,220 --> 00:05:33,960
+click the back button and come back to
+
+164
+00:05:33,960 --> 00:05:35,400
+the previous activity and if that
+
+165
+00:05:35,400 --> 00:05:37,620
+happens so if the actual activity which
+
+166
+00:05:37,620 --> 00:05:39,660
+is in the power State comes back into
+
+167
+00:05:39,660 --> 00:05:41,699
+the foreground then you can see when the
+
+168
+00:05:41,699 --> 00:05:43,560
+user returns to the activity the
+
+169
+00:05:43,560 --> 00:05:45,240
+lifecycle will move back to the resume
+
+170
+00:05:45,240 --> 00:05:47,460
+state so it's in the foreground just as
+
+171
+00:05:47,460 --> 00:05:49,680
+before and it will stay there until the
+
+172
+00:05:49,680 --> 00:05:51,600
+user moves away again but how do we now
+
+173
+00:05:51,600 --> 00:05:54,240
+get from on pause to on stop you can see
+
+174
+00:05:54,240 --> 00:05:56,280
+the activity is no longer visible but
+
+175
+00:05:56,280 --> 00:05:58,800
+isn't this the same as moving away well
+
+176
+00:05:58,800 --> 00:06:01,020
+if the user navigates from one activity
+
+177
+00:06:01,020 --> 00:06:03,600
+to another activity then on stop will
+
+178
+00:06:03,600 --> 00:06:05,220
+also be called and the lifecycle state
+
+179
+00:06:05,220 --> 00:06:07,380
+will move to the stop state so what's
+
+180
+00:06:07,380 --> 00:06:09,419
+done the difference between the stop
+
+181
+00:06:09,419 --> 00:06:11,580
+State and the pause state if an activity
+
+182
+00:06:11,580 --> 00:06:13,440
+is in the stop State you can be sure
+
+183
+00:06:13,440 --> 00:06:15,300
+that it's not visible to the user
+
+184
+00:06:15,300 --> 00:06:17,039
+anymore if it's in the past there it
+
+185
+00:06:17,039 --> 00:06:18,840
+could still be that the user is seeing a
+
+186
+00:06:18,840 --> 00:06:20,940
+dialogue and the actual activity that is
+
+187
+00:06:20,940 --> 00:06:22,979
+paused is still somehow in the
+
+188
+00:06:22,979 --> 00:06:24,840
+background so you can imagine just like
+
+189
+00:06:24,840 --> 00:06:26,580
+on your desktop PC where you have
+
+190
+00:06:26,580 --> 00:06:28,199
+different windows so different
+
+191
+00:06:28,199 --> 00:06:30,240
+activities and your browser might be in
+
+192
+00:06:30,240 --> 00:06:31,500
+the background and you might have a
+
+193
+00:06:31,500 --> 00:06:33,180
+smaller window in the foreground which
+
+194
+00:06:33,180 --> 00:06:35,100
+is your focus so in that case the
+
+195
+00:06:35,100 --> 00:06:36,780
+browser which is in the background and
+
+196
+00:06:36,780 --> 00:06:38,759
+not focused would be in the past State
+
+197
+00:06:38,759 --> 00:06:41,340
+while the smaller window that is in the
+
+198
+00:06:41,340 --> 00:06:43,440
+foreground is in the resume State since
+
+199
+00:06:43,440 --> 00:06:45,479
+it has the user's Focus but as soon as
+
+200
+00:06:45,479 --> 00:06:47,580
+the whole window is not visible anymore
+
+201
+00:06:47,580 --> 00:06:50,220
+it would be considered stopped so that
+
+202
+00:06:50,220 --> 00:06:51,900
+would be the case if the user navigates
+
+203
+00:06:51,900 --> 00:06:53,880
+to another screen since then only that
+
+204
+00:06:53,880 --> 00:06:55,740
+new screen is visible on the screen and
+
+205
+00:06:55,740 --> 00:06:57,180
+not the previous screen anymore if the
+
+206
+00:06:57,180 --> 00:06:58,979
+user then comes back when the activity
+
+207
+00:06:58,979 --> 00:07:01,500
+is in the stopped State you can see then
+
+208
+00:07:01,500 --> 00:07:03,419
+on restart this call which is kind of a
+
+209
+00:07:03,419 --> 00:07:05,280
+special function when the user comes
+
+210
+00:07:05,280 --> 00:07:07,680
+back to an app that was minimized before
+
+211
+00:07:07,680 --> 00:07:09,900
+and that was hidden so this just gives
+
+212
+00:07:09,900 --> 00:07:11,819
+you another callback to react to exactly
+
+213
+00:07:11,819 --> 00:07:14,520
+this kind of use case and after that
+
+214
+00:07:14,520 --> 00:07:16,680
+onstart will be called again so the
+
+215
+00:07:16,680 --> 00:07:18,419
+activity will be made visible to the
+
+216
+00:07:18,419 --> 00:07:20,580
+user and then on resume where the user
+
+217
+00:07:20,580 --> 00:07:22,440
+can finally interact with it again but
+
+218
+00:07:22,440 --> 00:07:24,240
+last but not least as you saw we also
+
+219
+00:07:24,240 --> 00:07:26,699
+have on Destroy so what does need to
+
+220
+00:07:26,699 --> 00:07:28,979
+happen that our activity really gets
+
+221
+00:07:28,979 --> 00:07:30,720
+destroyed and all its resources get
+
+222
+00:07:30,720 --> 00:07:32,280
+freed up so this diagram says the
+
+223
+00:07:32,280 --> 00:07:34,080
+activity is finishing or being destroyed
+
+224
+00:07:34,080 --> 00:07:36,120
+by the system what does finishing really
+
+225
+00:07:36,120 --> 00:07:37,979
+mean so usually that either means that
+
+226
+00:07:37,979 --> 00:07:40,020
+you either intentionally closed it with
+
+227
+00:07:40,020 --> 00:07:41,520
+the Finish function inside of an
+
+228
+00:07:41,520 --> 00:07:43,319
+activity or the user is currently on
+
+229
+00:07:43,319 --> 00:07:45,180
+that activity and is active and then
+
+230
+00:07:45,180 --> 00:07:46,860
+they click the back button because that
+
+231
+00:07:46,860 --> 00:07:48,960
+tells the Android system a I don't want
+
+232
+00:07:48,960 --> 00:07:50,460
+to be active on this activity anymore
+
+233
+00:07:50,460 --> 00:07:53,039
+please take me to the previous one so
+
+234
+00:07:53,039 --> 00:07:55,199
+the current activity is not needed
+
+235
+00:07:55,199 --> 00:07:57,419
+anymore and it will be destroyed or
+
+236
+00:07:57,419 --> 00:07:59,759
+obviously as this description here says
+
+237
+00:07:59,759 --> 00:08:01,800
+if the system so the actual Android
+
+238
+00:08:01,800 --> 00:08:04,259
+operating system needs memory and it
+
+239
+00:08:04,259 --> 00:08:06,240
+might decide to kill your app than on
+
+240
+00:08:06,240 --> 00:08:08,039
+Destroy will also be invoked there's
+
+241
+00:08:08,039 --> 00:08:10,259
+also another special case in which the
+
+242
+00:08:10,259 --> 00:08:12,660
+lifecycle will reach the destroyed State
+
+243
+00:08:12,660 --> 00:08:14,460
+and that our so-called configuration
+
+244
+00:08:14,460 --> 00:08:16,800
+changes that means when some kind of
+
+245
+00:08:16,800 --> 00:08:19,139
+global configuration changes the most
+
+246
+00:08:19,139 --> 00:08:21,120
+common example is a screen rotation so
+
+247
+00:08:21,120 --> 00:08:23,220
+when the user rotates the device that
+
+248
+00:08:23,220 --> 00:08:25,800
+means the layout the activity is showing
+
+249
+00:08:25,800 --> 00:08:28,020
+also needs to be re-inflated it again
+
+250
+00:08:28,020 --> 00:08:29,699
+needs to be loaded from the resources
+
+251
+00:08:29,699 --> 00:08:31,500
+maybe or maybe there's a specific
+
+252
+00:08:31,500 --> 00:08:33,599
+landscape layout so everything will be
+
+253
+00:08:33,599 --> 00:08:35,458
+set up from the very beginning again and
+
+254
+00:08:35,458 --> 00:08:37,380
+in that case the whole activity will be
+
+255
+00:08:37,380 --> 00:08:39,599
+recreated and the lifecycle will start
+
+256
+00:08:39,599 --> 00:08:41,520
+from oncreate again as soon as the
+
+257
+00:08:41,520 --> 00:08:43,380
+device is in landscape mode then that
+
+258
+00:08:43,380 --> 00:08:44,520
+doesn't only happen with screen
+
+259
+00:08:44,520 --> 00:08:46,320
+rotations but also for example when
+
+260
+00:08:46,320 --> 00:08:48,720
+switching the language of the device and
+
+261
+00:08:48,720 --> 00:08:51,180
+many more but I don't want to go that
+
+262
+00:08:51,180 --> 00:08:52,860
+deep into these configuration changes in
+
+263
+00:08:52,860 --> 00:08:54,540
+this video I will talk about that in
+
+264
+00:08:54,540 --> 00:08:56,459
+another one but they come with more
+
+265
+00:08:56,459 --> 00:08:58,019
+problems than you might think at first
+
+266
+00:08:58,019 --> 00:09:00,240
+and if we now take a look back here in
+
+267
+00:09:00,240 --> 00:09:03,600
+code then for all of these lifecycle
+
+268
+00:09:03,600 --> 00:09:05,519
+States we have a function inside of an
+
+269
+00:09:05,519 --> 00:09:07,800
+activity we can override to react to
+
+270
+00:09:07,800 --> 00:09:09,779
+this so if we take a look here we can
+
+271
+00:09:09,779 --> 00:09:12,660
+also override on start which is called
+
+272
+00:09:12,660 --> 00:09:14,700
+as soon as the activity becomes
+
+273
+00:09:14,700 --> 00:09:16,200
+invisible as I said so here we could
+
+274
+00:09:16,200 --> 00:09:18,899
+simply print some thing
+
+275
+00:09:18,899 --> 00:09:21,660
+um let's say on start after on start we
+
+276
+00:09:21,660 --> 00:09:24,420
+would call on resume which is called as
+
+277
+00:09:24,420 --> 00:09:27,120
+soon as the user can interact with the
+
+278
+00:09:27,120 --> 00:09:30,240
+activity so here we say print line
+
+279
+00:09:30,240 --> 00:09:32,220
+on resume
+
+280
+00:09:32,220 --> 00:09:36,080
+we want to have one for one pause
+
+281
+00:09:36,120 --> 00:09:39,600
+print line on pause
+
+282
+00:09:39,600 --> 00:09:44,279
+and let's have one for on stop
+
+283
+00:09:44,279 --> 00:09:46,680
+print line on stop
+
+284
+00:09:46,680 --> 00:09:49,320
+one for destroy here we want to print
+
+285
+00:09:49,320 --> 00:09:51,180
+something
+
+286
+00:09:51,180 --> 00:09:53,459
+and what is the missing we're missing on
+
+287
+00:09:53,459 --> 00:09:55,320
+restart
+
+288
+00:09:55,320 --> 00:09:58,140
+which is called when the user comes back
+
+289
+00:09:58,140 --> 00:09:59,940
+to the app which was previously in the
+
+290
+00:09:59,940 --> 00:10:03,000
+background so here we say print line on
+
+291
+00:10:03,000 --> 00:10:06,060
+restart and let's also add such a log in
+
+292
+00:10:06,060 --> 00:10:08,399
+on create since we're missing that right
+
+293
+00:10:08,399 --> 00:10:10,800
+now and if we then change this to
+
+294
+00:10:10,800 --> 00:10:13,140
+uncreate and then launch this app on our
+
+295
+00:10:13,140 --> 00:10:15,240
+emulator and then also take a look in a
+
+296
+00:10:15,240 --> 00:10:18,839
+logcat to see our logs let's just filter
+
+297
+00:10:18,839 --> 00:10:21,540
+for these parentheses
+
+298
+00:10:21,540 --> 00:10:23,700
+or better we replace this with system
+
+299
+00:10:23,700 --> 00:10:26,339
+out so now we see all these functions
+
+300
+00:10:26,339 --> 00:10:28,380
+that get called and that is exactly what
+
+301
+00:10:28,380 --> 00:10:30,240
+you just saw from the diagram I showed
+
+302
+00:10:30,240 --> 00:10:32,220
+you initially on Creator's code when
+
+303
+00:10:32,220 --> 00:10:34,440
+that is done on Stardust code and when
+
+304
+00:10:34,440 --> 00:10:36,000
+that is done so when the activity is
+
+305
+00:10:36,000 --> 00:10:38,279
+visible to the user then the lifecycle
+
+306
+00:10:38,279 --> 00:10:40,740
+state will move in on resume and if we
+
+307
+00:10:40,740 --> 00:10:43,019
+take a look here on our emulator this is
+
+308
+00:10:43,019 --> 00:10:45,180
+currently in active activity we see the
+
+309
+00:10:45,180 --> 00:10:47,279
+screen we see this hello Android text so
+
+310
+00:10:47,279 --> 00:10:49,260
+the user is currently interacting with
+
+311
+00:10:49,260 --> 00:10:51,779
+the app and that is why the state stays
+
+312
+00:10:51,779 --> 00:10:54,360
+and resumed if we now move away so we
+
+313
+00:10:54,360 --> 00:10:57,500
+minimize the app for example
+
+314
+00:10:57,540 --> 00:10:59,519
+um completely minimize it then you will
+
+315
+00:10:59,519 --> 00:11:01,800
+see on pause and unstop is called on
+
+316
+00:11:01,800 --> 00:11:03,300
+pause because it moves into the
+
+317
+00:11:03,300 --> 00:11:05,160
+background and on stop because it
+
+318
+00:11:05,160 --> 00:11:07,200
+completely gets invisible to the user as
+
+319
+00:11:07,200 --> 00:11:08,760
+you can see that's the case the user
+
+320
+00:11:08,760 --> 00:11:10,380
+does not see anything of the activity
+
+321
+00:11:10,380 --> 00:11:12,839
+anymore and it's not just seeing a
+
+322
+00:11:12,839 --> 00:11:14,339
+dialogue or so what the activity is
+
+323
+00:11:14,339 --> 00:11:15,959
+still in the background and if we then
+
+324
+00:11:15,959 --> 00:11:18,899
+get back to the activity right here and
+
+325
+00:11:18,899 --> 00:11:20,760
+then you can see on restart is called
+
+326
+00:11:20,760 --> 00:11:23,399
+start and resume so that was exactly
+
+327
+00:11:23,399 --> 00:11:25,680
+what I showed you here after on stop
+
+328
+00:11:25,680 --> 00:11:28,019
+user comes back to the activity on
+
+329
+00:11:28,019 --> 00:11:30,660
+restart is called onstard is called on
+
+330
+00:11:30,660 --> 00:11:32,459
+resumes called and that is where it will
+
+331
+00:11:32,459 --> 00:11:34,500
+stay again until the user does something
+
+332
+00:11:34,500 --> 00:11:36,839
+moves away or closes the app let's also
+
+333
+00:11:36,839 --> 00:11:38,339
+quickly take a look at that when the
+
+334
+00:11:38,339 --> 00:11:41,040
+user closes the app by just swiping it
+
+335
+00:11:41,040 --> 00:11:42,060
+away
+
+336
+00:11:42,060 --> 00:11:44,399
+then you will see on pauses chord on
+
+337
+00:11:44,399 --> 00:11:46,079
+stop is called an on Destroy is called
+
+338
+00:11:46,079 --> 00:11:48,240
+so then the activity is really destroyed
+
+339
+00:11:48,240 --> 00:11:51,060
+all the resources all the UI is freed up
+
+340
+00:11:51,060 --> 00:11:52,920
+it's not kept in memory anymore and to
+
+341
+00:11:52,920 --> 00:11:54,420
+get it back on the screen we would need
+
+342
+00:11:54,420 --> 00:11:56,160
+to create a new one there are certain
+
+343
+00:11:56,160 --> 00:11:58,920
+cases where on stop and on this trial
+
+344
+00:11:58,920 --> 00:12:00,660
+might not be called so the Android
+
+345
+00:12:00,660 --> 00:12:02,820
+system does not guarantee that these are
+
+346
+00:12:02,820 --> 00:12:04,740
+always cold so if you have some very
+
+347
+00:12:04,740 --> 00:12:07,140
+important data to say for example before
+
+348
+00:12:07,140 --> 00:12:09,000
+the user leaves the app I would always
+
+349
+00:12:09,000 --> 00:12:11,220
+do that in on pause but other than that
+
+350
+00:12:11,220 --> 00:12:13,440
+that is how activities and the life
+
+351
+00:12:13,440 --> 00:12:15,180
+cycle works if you enjoyed this video
+
+352
+00:12:15,180 --> 00:12:17,399
+then definitely leave a subscribe and
+
+353
+00:12:17,399 --> 00:12:19,320
+don't miss the next Android basic videos
+
+354
+00:12:19,320 --> 00:12:21,300
+you'll get two new videos here every
+
+355
+00:12:21,300 --> 00:12:23,760
+single week Wednesday and Sunday so
+
+356
+00:12:23,760 --> 00:12:25,440
+definitely stay tuned I wish you an
+
+357
+00:12:25,440 --> 00:12:26,880
+amazing rest of your week and I'll see
+
+358
+00:12:26,880 --> 00:12:30,680
+you back in the next video bye bye
+
+359
+00:12:36,980 --> 00:12:40,579
+thank you
+
